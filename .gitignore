@@ -1,0 +1,15 @@
+# ignore vscode setup
+.vscode
+
+# ignore all node_modules
+node_modules/
+
+# ignore all pics
+pics/
+pics2/
+
+# ignore macOS finder files
+.DS_Store
+
+#ignore config file
+config.json

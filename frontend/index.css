@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #131722;
+  background-color: #f7f8fd;
+  height: 100%;
+  padding: 20px 50px;
+}
+
+h1 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+}
+
+.image-ticker {
+  overflow: hidden;         
+  user-select: none;      
+  padding: 8px 0;
+}
+
+.image-ticker ul {
+  animation: scroll linear infinite; /* present to let css discover hover */
+  display: grid;
+  align-items: center;
+}
+
+.tickerimg {
+  width: 100%;            
+  height: auto;
+  max-height: 600px;           
+  border-radius: 8px;     /*rounds the corners */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);   /* Start from the beginning */
+  }
+  100% {
+    transform: translateX(-50%); /* Moves left by half the total width */
+  }
+}
+
+/*pausing the scroll on hover */
+.image-ticker:hover ul {
+  animation-play-state: paused;
+}
+
+.keyword-ticker {
+  width: 100%;
+  overflow: hidden;
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+  user-select: none;    
+  padding: 10px 0;
+}
+.keyword-ticker ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  animation: scroll linear infinite;
+}
+.keyword-ticker li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(-50%);
+  }
+}
+
+#search-container {
+  padding-top: 1em;
+  align-items: center;
+  text-align: center;
+}
+
+#searchbar {
+    font-size: 36px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: rgb(250, 250, 250); 
+}
+
+#searchbar:focus {
+    outline: none;
+    border-bottom: 2px solid black;
+}
+
+.invis {
+  display: none;
+}
