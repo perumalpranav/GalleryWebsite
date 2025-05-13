@@ -95,10 +95,3 @@ GalleryWebsite is an interactive and dynamic image gallery website. It enables u
 ## License
 
 This project is licensed under the GNU General Public License v3. See the [LICENSE](LICENSE) file for details. By using this project, you agree to comply with the terms of the GPLv3, ensuring that any derivative works remain open-source and provide the same freedoms to others.
-
----
-
-## Acknowledgments
-- AWS for providing scalable cloud infrastructure.
-- Open-source libraries like Axios for simplifying HTTP requests.
-
