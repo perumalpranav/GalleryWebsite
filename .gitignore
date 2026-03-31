@@ -13,3 +13,6 @@ pics2/
 
 #ignore config file
 config.json
+
+#secrets file (postgres)
+secrets.json
