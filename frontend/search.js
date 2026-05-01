@@ -2,9 +2,6 @@
 import config from './config.json' with { type: 'json' };
 //get config
 
-const tablename = "GalleryTable2";
-const directoryPath = "./pics2";
-
 const piclayout = document.getElementById('piclayout');
 let pictures;
 let picIndex = 0;
@@ -100,16 +97,12 @@ larrow.addEventListener('click', function() {
   }
 });
 
-const getPictures = async (keyword) =>{
+const getPictures = async (keyword) => {
   try {
-    const params = {
-      "tablename": tablename,
-      "keyword": keyword,
-    }
-
+    const params = { "keyword": keyword }
     const response = await axios.post(`${config.api.invokeUrl}/key`, params);
     console.log(response);
-    const pictures = transformDynamoDBResponse(response.data);
+    const pictures = transformSQLResponse(response.data);
     return pictures;
   } catch (err) {
     console.log(`Attempt to scan has failed for keyword: ${keyword}.`);
@@ -118,26 +111,24 @@ const getPictures = async (keyword) =>{
   return [];
 }
 
-function transformDynamoDBResponse(items) {
-  return Object.values(items).map(item => ({
-    description: item.description?.S || '',
-    keywords: Object.keys(item).filter(key => item[key].S === 'T'),
-    id: item.id?.S || '',
-    path: `${directoryPath}/${item.id?.S || ''}.jpg`
+function transformSQLResponse(items) {
+  return items.map(item => ({
+    description: item.description || '',
+    keywords: item.keywords || [],
+    id: item.image_id,
+    path: item.s3_key
   }));
 }
 
-const updateInfo = async (picObject) =>{
+const updateInfo = async (picObject) => {
   try {
     const params = {
-      "tablename": tablename, //CHANGE LATER
+      "image_id": picObject.id,
       "description": picObject.description,
+      "keywords": picObject.keywords.map(k => k.trim().toLowerCase())
     }
-    picObject.keywords.forEach(keyword => {
-      params[keyword.trim().toLowerCase()] = "T";
-    });
     console.log(params);
-    const response = await axios.post(`${config.api.invokeUrl}/${picObject.id}`, params); //change later
+    const response = await axios.post(`${config.api.invokeUrl}/${picObject.id}`, params);
     return response;
   } catch (err) {
     console.log(`Failed to update item ${picObject.id} because of ${err}`);
